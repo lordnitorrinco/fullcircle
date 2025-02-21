@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "c529c6e7-1dee-4690-a11e-f52a336d571d",
+		"name": "fullcircle_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39901668"
+	},
+	"item": [
+		{
+			"name": "getAllTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCompletedTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/tasks/completed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"tasks",
+						"completed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "putTask",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/tasks/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"tasks",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postTask",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "deleteTask",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

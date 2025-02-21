@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS rooms_db;
+-- Use the rooms_db database
+USE rooms_db;
+
 -- Create the users table
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY, -- Primary key with auto-increment

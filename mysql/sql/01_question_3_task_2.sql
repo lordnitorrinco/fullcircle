@@ -1,3 +1,6 @@
+-- Use the rooms_db database
+USE products_db;
+
 -- Optimize the order_items table
 ALTER TABLE order_items
 ADD INDEX idx_order_id (order_id), -- Add index on order_id column to improve query performance
