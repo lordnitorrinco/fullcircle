@@ -4,8 +4,8 @@
 
 ### Clonar el repositorio
 ```bash
-git clone https://github.com/lordnitorrinco/full-circle
-cd full-circle
+git clone https://github.com/lordnitorrinco/fullcircle
+cd fullcircle
 ```
 
 ### PHP
