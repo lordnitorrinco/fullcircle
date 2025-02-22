@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
-use Illuminate\Http\Request;
+use App\Services\TaskService;
 use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
+    protected $taskService;
+
+    public function __construct(TaskService $taskService)
+    {
+        $this->taskService = $taskService;
+    }
+
     /**
      * Display a listing of the tasks.
      *
@@ -15,41 +24,32 @@ class TaskController extends Controller
      */
     public function index(): Response
     {
-        $tasks = Task::all();
+        $tasks = $this->taskService->getAllTasks();
         return response($tasks, 200);
     }
 
     /**
      * Store a newly created task in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): Response
+    public function store(StoreTaskRequest $request): Response
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'status' => 'in:' . implode(',', [Task::STATUS_PENDING, Task::STATUS_IN_PROGRESS, Task::STATUS_COMPLETED])
-        ]);
-
-        $task = Task::create($request->all());
+        $task = $this->taskService->createTask($request->validated());
         return response($task, 201);
     }
 
     /**
      * Update the specified task in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateTaskRequest  $request
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task): Response
+    public function update(UpdateTaskRequest $request, Task $task): Response
     {
-        $request->validate([
-            'status' => 'in:' . implode(',', [Task::STATUS_PENDING, Task::STATUS_IN_PROGRESS, Task::STATUS_COMPLETED])
-        ]);
-
-        $task->update($request->all());
+        $task = $this->taskService->updateTask($task, $request->validated());
         return response($task, 200);
     }
 
@@ -61,7 +61,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task): Response
     {
-        $task->delete();
+        $this->taskService->deleteTask($task);
         return response()->noContent();
     }
 
@@ -72,9 +72,7 @@ class TaskController extends Controller
      */
     public function completedTasks(): Response
     {
-        $completedTasks = Task::where('status', Task::STATUS_COMPLETED)
-                              ->where('created_at', '>=', now()->subDays(7))
-                              ->get();
+        $completedTasks = $this->taskService->getCompletedTasks();
         return response($completedTasks, 200);
     }
 }
