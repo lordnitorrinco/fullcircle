@@ -1,9 +1,9 @@
 services:
   # MYSQL Database
-  database:
+  wordpress_database:
     image: mysql:8.0
     volumes: 
-      - db_data:/var/lib/mysql
+      - wordpress_db_data:/var/lib/mysql
     restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment: 
@@ -11,13 +11,15 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+    ports:
+      - '3307:3306'
     networks: 
-      - wpsite
+      - wordpress_network
 
   # WORDPRESS
   wordpress:
     depends_on:
-      - database 
+      - wordpress_database 
     image: wordpress:latest
     ports: 
       - '8000:80'
@@ -25,27 +27,27 @@ services:
     volumes: 
       - './wp-content/plugins/events:/var/www/html/wp-content/plugins/events'
     environment: 
-      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_HOST: wordpress_database:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     networks: 
-      - wpsite
+      - wordpress_network
 
   # PHPMYADMIN
-  phpmyadmin:
+  wordpress_phpmyadmin:
     depends_on: 
-      - database
+      - wordpress_database
     image: phpmyadmin/phpmyadmin
     restart: always
     ports: 
       - '8080:80'
     environment: 
-      PMA_HOST: database
+      PMA_HOST: wordpress_database
       MYSQL_ROOT_PASSWORD: password
     networks:
-      - wpsite
+      - wordpress_network
         
 networks:
-  wpsite:
+  wordpress_network:
 volumes:
-  db_data:
+  wordpress_db_data:

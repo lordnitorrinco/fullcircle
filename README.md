@@ -21,56 +21,44 @@ cd fullcircle
     ```bash
     php bin/main.php -h
     ```
+    o ejecutar una de las opciones directamente
+    ```bash
+    php bin/main.php all
+    php bin/main.php question1
+    php bin/main.php question2
+    php bin/main.php question3
+    ```
+    para todos los comandos puedes introducir los datos manulamente con --manual (por defecto a --random)
 
-#### Usage:
-```bash
-php bin/main.php [command] [options]
-```
-
-#### Commands:
-- `question1`          Execute question 1
-- `question2`          Execute question 2
-- `question3`          Execute question 3
-- `all`                Execute all questions with random data
-
-#### Options:
-- `-h, --help`         Show this help message
-- `--manual`           Enter data manually
-- `--random`           Use random data [default]
-
-4. Extra: he dejado el archivo create-project.php para mostrar lo que se puede afinar un output de GitHub Copilot, para probarlo solo hay que copiarlo a un directorio vacío y ejecutarlo, creará una copia de todo lo que hay ahora en fullcircle/php/, directorios y archivos.
+4. He dejado el archivo create-project.php para mostrar lo que se puede afinar un output de GitHub Copilot. Para probarlo solo hay que copiarlo a un directorio vacío y ejecutarlo, creará una copia de todo lo que hay ahora en fullcircle/php/, directorios y archivos.
 
 ### MySQL
 1. Navegar al directorio de MySQL:
     ```bash
     cd mysql
     ```
-2. Bajar los contenedores de Docker si están corriendo:
-    ```bash
-    docker compose down
-    ```
-3. Levantar los contenedores de Docker:
+2. Levantar los contenedores de Docker:
     ```bash
     docker compose up -d
     ```
-4. Esperar a que se ejecuten los scripts SQL (verificar en los logs de Docker Desktop).
-5. Acceder al contenedor de MySQL:
+3. Esperar a que se ejecuten los scripts SQL (verificar en los logs de Docker Desktop).
+4. Acceder al contenedor de MySQL:
     ```bash
     docker exec -it mysql_container mysql -uroot -p
     ```
     - Contraseña: `root`
 
-6. **Pregunta 1:**
+5. **Pregunta 1:**
     ```sql
     USE rooms_db;
     SHOW TABLES;
     ```
-7. **Pregunta 2:**
+6. **Pregunta 2:**
     ```sql
     USE rooms_db;
     CALL GetAvailableRooms('2025-02-21');
     ```
-8. **Pregunta 3:**
+7. **Pregunta 3:**
     ```sql
     USE products_db;
     CALL GetTop5BestSellingProducts();
@@ -86,37 +74,29 @@ php bin/main.php [command] [options]
     ```bash
     composer install
     ```
-3. Bajar los contenedores de Sail si están corriendo:
-    ```bash
-    ./vendor/bin/sail down
-    ```
-4. Levantar los contenedores de Sail:
+3. Levantar los contenedores de Sail:
     ```bash
     ./vendor/bin/sail up -d
     ```
-5. Ejecutar migraciones:
+4. Ejecutar migraciones:
     ```bash
     ./vendor/bin/sail artisan migrate
     ```
-6. Ejecutar seeders:
+5. Ejecutar seeders:
     ```bash
     ./vendor/bin/sail artisan db:seed
     ```
-7. Usar la colección `/laravel/fullcircle.postman_collection.json` para testear los endpoints.
+6. Usar la colección `/laravel/fullcircle.postman_collection.json` para testear los endpoints.
 
 ### WordPress
 1. Navegar al directorio de WordPress:
     ```bash
     cd wordpress
     ```
-2. Bajar los contenedores de Docker si están corriendo:
-    ```bash
-    docker compose down
-    ```
-3. Levantar los contenedores de Docker:
+2. Levantar los contenedores de Docker:
     ```bash
     docker compose up -d
     ```
-4. Esperar a que termine la configuración de la base de datos en Docker.
-5. Acceder a [http://localhost:8000/](http://localhost:8000/), configurar WordPress y activar el plugin.
+3. Esperar a que termine la configuración de la base de datos en Docker.
+4. Acceder a [http://localhost:8000/](http://localhost:8000/), configurar WordPress y activar el plugin.
 
