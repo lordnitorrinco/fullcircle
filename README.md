@@ -1,4 +1,4 @@
-# Proyecto Full Circle
+# Proyecto Full Circle 1.1.0
 
 ## Instrucciones de Instalación
 
@@ -9,20 +9,36 @@ cd fullcircle
 ```
 
 ### PHP
-1. **Pregunta 1:**
+1. Navegar al directorio de PHP:
     ```bash
-    php php/question_1.php
+    cd php
     ```
-2. **Pregunta 2:**
+2. Instalar dependencias:
     ```bash
-    php php/question_2.php
-    ```
-3. **Pregunta 3:**
-    ```bash
-    cd php/question_3
     composer install
-    php index.php
     ```
+3. Ejecutar bin/main.php -h (o --help) para ver las opciones de ejecución
+    ```bash
+    php bin/main.php -h
+    ```
+
+#### Usage:
+```bash
+php bin/main.php [command] [options]
+```
+
+#### Commands:
+- `question1`          Execute question 1
+- `question2`          Execute question 2
+- `question3`          Execute question 3
+- `all`                Execute all questions with random data
+
+#### Options:
+- `-h, --help`         Show this help message
+- `--manual`           Enter data manually
+- `--random`           Use random data [default]
+
+4. Extra: he dejado el archivo create-project.php para mostrar lo que se puede afinar un output de GitHub Copilot, para probarlo solo hay que copiarlo a un directorio vacío y ejecutarlo, creará una copia de todo lo que hay ahora en fullcircle/php/, directorios y archivos.
 
 ### MySQL
 1. Navegar al directorio de MySQL:
