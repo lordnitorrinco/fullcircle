@@ -1,4 +1,4 @@
-# Proyecto Full Circle 1.1.0
+# Proyecto Full Circle 1.1.1
 
 ## Instrucciones de Instalación
 
