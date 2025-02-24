@@ -9,14 +9,14 @@ cd fullcircle
 ```
 Todos los contenedores se pueden ejecutar en paralelo, usan puertos distintos para bbdd:
 ```plaintext
-- laravel =  localhost:3306
-- symfony =  localhost:3307
-- mysql =    localhost:3308
+- laravel   =   localhost:3306
+- wordpress =   localhost:3307
+- mysql     =   localhost:3308
 ```
 y para aplicaciones web:
 ```plaintext
-- laravel =  localhost:80
-- symfony =  localhost:8000
+- laravel   =   localhost:80
+- wordpress =   localhost:8000
 ```
 ### PHP
 1. Navegar al directorio de PHP:
@@ -113,5 +113,5 @@ y para aplicaciones web:
     docker compose up -d
     ```
 3. Esperar a que termine la configuración de la base de datos en Docker.
-4. Acceder a [http://localhost:8000/](http://localhost:8000/), configurar WordPress y activar el plugin.
+4. Acceder a http://localhost:8000, configurar WordPress y activar el plugin.
 
