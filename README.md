@@ -71,7 +71,7 @@ y para aplicaciones web:
 6. **Pregunta 2:**
     ```sql
     USE rooms_db;
-    CALL GetAvailableRooms('2025-02-21');
+    CALL GetAvailableRooms(CURDATE());
     ```
 7. **Pregunta 3:**
     ```sql
