@@ -93,11 +93,12 @@ y para aplicaciones web:
     ```bash
     ./vendor/bin/sail up -d
     ```
-4. Ejecutar migraciones:
+4. Esperar a que termine la configuración de la base de datos en Docker.
+5. Ejecutar migraciones:
     ```bash
     ./vendor/bin/sail artisan migrate
     ```
-5. Ejecutar seeders:
+6. Ejecutar seeders:
     ```bash
     ./vendor/bin/sail artisan db:seed
     ```
