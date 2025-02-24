@@ -95,7 +95,7 @@ class Cli
     private function showHelp(): void
     {
         $output = new ConsoleOutput();
-        $output->writeln("Usage: php bin/main.php [command] [options]");
+        $output->writeln("Usage: fullcircle [command] [options]");
         $output->writeln("Commands:");
         $output->writeln("  question1          Execute question 1");
         $output->writeln("  question2          Execute question 2");

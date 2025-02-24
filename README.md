@@ -7,7 +7,17 @@
 git clone https://github.com/lordnitorrinco/fullcircle
 cd fullcircle
 ```
-
+Todos los contenedores se pueden ejecutar en paralelo, usan puertos distintos para bbdd:
+```plaintext
+- laravel =  localhost:3306
+- symfony =  localhost:3307
+- mysql =    localhost:3308
+```
+y para aplicaciones web:
+```plaintext
+- laravel =  localhost:80
+- symfony =  localhost:8000
+```
 ### PHP
 1. Navegar al directorio de PHP:
     ```bash
