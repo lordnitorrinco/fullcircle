@@ -45,7 +45,7 @@ y para aplicaciones web:
     para todos los comandos puedes introducir los datos manulamente con --manual (por defecto a --random)
 
 5. He dejado el archivo create-project.php para mostrar lo que se puede afinar un output de GitHub Copilot. Para probarlo solo hay que copiarlo a un directorio vacío y ejecutarlo, creará una copia de todo lo que hay ahora en fullcircle/php/, directorios y archivos.
-    - Este método tiene contras asociados a trabajar con un archivo enorme y los tiempos para que Copilot lo modifique crecen, pero tiene el pro de "forzar" a Copilot a mantener una visión de conjunto del código, haciendo mucho más difícil que aparezcan incongruencias entre archivos y permitiendo maniobras como un cambio radical de la arquitectura de todo el proyecto con un solo comando. Como casi todo en este mundillo hay que usar este sistema con cuidado y no siempre es la mejor opción, pero ahí queda como ejemplo de que se puede hacer.
+    - Este método tiene contras asociados a trabajar con un archivo enorme y los tiempos para que Copilot lo modifique crecen, pero tiene el pro de "forzar" a Copilot a mantener una visión de conjunto del código, haciendo mucho más difícil que aparezcan incongruencias entre archivos y permitiendo maniobras como un cambio radical de la arquitectura de todo el proyecto con un solo comando. Como casi todo en este mundillo hay que usar este sistema con cuidado y no siempre es la mejor opción, pero ahí queda, como ejemplo de que se puede hacer.
 
 ### MySQL
 1. Navegar al directorio de MySQL:

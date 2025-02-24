@@ -5,7 +5,7 @@ services:
     volumes: 
       - wordpress_db_data:/var/lib/mysql
     restart: always
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=caching_sha2_password
     environment: 
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
@@ -25,26 +25,12 @@ services:
       - '8000:80'
     restart: always
     volumes: 
-      - './wp-content/plugins/events:/var/www/html/wp-content/plugins/events'
+      - './events:/var/www/html/wp-content/plugins/events'
     environment: 
       WORDPRESS_DB_HOST: wordpress_database:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     networks: 
-      - wordpress_network
-
-  # PHPMYADMIN
-  wordpress_phpmyadmin:
-    depends_on: 
-      - wordpress_database
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    ports: 
-      - '8080:80'
-    environment: 
-      PMA_HOST: wordpress_database
-      MYSQL_ROOT_PASSWORD: password
-    networks:
       - wordpress_network
         
 networks:
