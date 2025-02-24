@@ -1,0 +1,5 @@
+services:
+  php:
+    container_name: php_container
+    build:
+      dockerfile: Dockerfile

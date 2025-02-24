@@ -17,20 +17,24 @@ cd fullcircle
     ```bash
     composer install
     ```
-3. Ejecutar bin/main.php -h (o --help) para ver las opciones de ejecución
+3. Acceder al contenedor de PHP:
     ```bash
-    php bin/main.php -h
+    docker exec -it php_container sh
+    ```
+4. Ejecutar fullcircle -h (o --help) para ver las opciones de ejecución
+    ```bash
+    fullcircle -h
     ```
     o ejecutar una de las opciones directamente
     ```bash
-    php bin/main.php all
-    php bin/main.php question1
-    php bin/main.php question2
-    php bin/main.php question3
+    fullcircle all
+    fullcircle question1
+    fullcircle question2
+    fullcircle question3
     ```
     para todos los comandos puedes introducir los datos manulamente con --manual (por defecto a --random)
 
-4. He dejado el archivo create-project.php para mostrar lo que se puede afinar un output de GitHub Copilot. Para probarlo solo hay que copiarlo a un directorio vacío y ejecutarlo, creará una copia de todo lo que hay ahora en fullcircle/php/, directorios y archivos.
+5. He dejado el archivo create-project.php para mostrar lo que se puede afinar un output de GitHub Copilot. Para probarlo solo hay que copiarlo a un directorio vacío y ejecutarlo, creará una copia de todo lo que hay ahora en fullcircle/php/, directorios y archivos.
 
 ### MySQL
 1. Navegar al directorio de MySQL:
