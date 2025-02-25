@@ -1,4 +1,4 @@
-# Proyecto Full Circle 1.2.0
+# Proyecto Full Circle 2.0.0
 
 ## Instrucciones de Instalación
 
