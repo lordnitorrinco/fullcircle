@@ -116,3 +116,22 @@ y para aplicaciones web:
 3. Esperar a que termine la configuración de la base de datos en Docker.
 4. Acceder a http://localhost:8000, configurar WordPress y activar el plugin.
 
+### Tkinter
+1. Navegar al directorio de Tkinter:
+    ```bash
+    cd tkinter
+    ```
+2. Levantar el entorno virtual:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+3. Instalar dependencias:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. Iniciar app:
+    ```bash
+    python src/main.py
+    ```
+- Esta aplicación permite monitorizar los contenedores de todas las demás y probarlas si los contenedores están levantados.
