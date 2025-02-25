@@ -24,7 +24,7 @@ class Question3Command
         if (in_array('--manual', $argv)) {
             $transactionsData = $this->getTransactionsInput->getTransactionsFromUser();
             $transactions = array_map(function($transactionData) {
-                return new Transaction($transactionData['id'], $transactionData['amount'], $transactionData['date'], $transactionData['category']);
+                return new Transaction($transactionData['amount'], $transactionData['date'], $transactionData['category']);
             }, $transactionsData);
         } elseif (in_array('--random', $argv)) {
             $categories = [
@@ -56,7 +56,7 @@ class Question3Command
                 } else {
                     $date = date('Y-m-d', strtotime("-" . rand(0, 27) . " days"));
                 }
-                $transactions[] = new Transaction($i, $amount, $date, $category);
+                $transactions[] = new Transaction($amount, $date, $category);
             }
         } else {
             $output->writeln("<error>Invalid usage for question3. Use -h or --help for instructions.</error>");

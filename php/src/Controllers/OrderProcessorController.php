@@ -20,10 +20,10 @@ class OrderProcessorController
         $output = new ConsoleOutput();
         // Output the orders
         $table = new Table($output);
-        $table->setHeaders(['Order ID', 'Status', 'Total']);
+        $table->setHeaders(['Status', 'Amount']);
         
         foreach ($orders as $order) {
-            $table->addRow([$order->getId(), $order->getStatus(), $order->getTotal()]);
+            $table->addRow([$order->getStatus(), $order->getAmount()]);
         }
         
         $table->render();

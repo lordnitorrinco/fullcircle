@@ -61,8 +61,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task): Response
     {
-        $this->taskService->deleteTask($task);
-        return response()->noContent();
+        $task = $this->taskService->deleteTask($task);
+        return response($task, 200);
     }
 
     /**

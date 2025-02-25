@@ -31,7 +31,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/tasks/completed",
+					"raw": "http://localhost/api/tasks/completed",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -59,7 +59,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/tasks/1",
+					"raw": "http://localhost/api/tasks/1",
 					"protocol": "http",
 					"host": [
 						"localhost"

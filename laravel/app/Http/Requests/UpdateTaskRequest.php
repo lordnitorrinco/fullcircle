@@ -15,6 +15,8 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'string|max:255',
+            'description' => 'string',
             'status' => 'in:' . implode(',', [Task::STATUS_PENDING, Task::STATUS_IN_PROGRESS, Task::STATUS_COMPLETED])
         ];
     }

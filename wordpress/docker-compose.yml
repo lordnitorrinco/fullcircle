@@ -1,6 +1,6 @@
 services:
   # MYSQL Database
-  wordpress_database:
+  mysql:
     image: mysql:8.0
     volumes: 
       - wordpress_db_data:/var/lib/mysql
@@ -17,9 +17,9 @@ services:
       - wordpress_network
 
   # WORDPRESS
-  wordpress:
+  app:
     depends_on:
-      - wordpress_database 
+      - mysql 
     image: wordpress:latest
     ports: 
       - '8000:80'
@@ -27,7 +27,7 @@ services:
     volumes: 
       - './events:/var/www/html/wp-content/plugins/events'
     environment: 
-      WORDPRESS_DB_HOST: wordpress_database:3306
+      WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     networks: 

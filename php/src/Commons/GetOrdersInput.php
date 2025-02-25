@@ -19,17 +19,15 @@ class GetOrdersInput
         $orders = [];
         $output = new ConsoleOutput();
         while (true) {
-            $output->writeln("Enter order ID: ");
-            $id = trim(fgets(STDIN));
             $output->writeln("Enter order status: ");
             $status = trim(fgets(STDIN));
-            $output->writeln("Enter order total: ");
-            $total = trim(fgets(STDIN));
+            $output->writeln("Enter order amount: ");
+            $amount = trim(fgets(STDIN));
 
-            if (is_numeric($id) && is_numeric($total)) {
-                $orders[] = ['id' => (int)$id, 'status' => $status, 'total' => (float)$total];
+            if (is_numeric($amount)) {
+                $orders[] = ['status' => $status, 'amount' => (float)$amount];
             } else {
-                $output->writeln("<error>Invalid input. Please enter valid numbers for ID and total.</error>");
+                $output->writeln("<error>Invalid input. Please enter valid number for amount.</error>");
             }
 
             $output->writeln("Do you want to add another order? (yes/no): ");

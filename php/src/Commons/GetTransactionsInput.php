@@ -19,8 +19,6 @@ class GetTransactionsInput
         $transactions = [];
         $output = new ConsoleOutput();
         while (true) {
-            $output->writeln("Enter transaction ID: ");
-            $id = trim(fgets(STDIN));
             $output->writeln("Enter transaction amount: ");
             $amount = trim(fgets(STDIN));
             $output->writeln("Enter transaction date (YYYY-MM-DD): ");
@@ -28,10 +26,10 @@ class GetTransactionsInput
             $output->writeln("Enter transaction category: ");
             $category = trim(fgets(STDIN));
 
-            if (is_numeric($id) && is_numeric($amount) && strtotime($date)) {
-                $transactions[] = ['id' => (int)$id, 'amount' => (float)$amount, 'date' => $date, 'category' => $category];
+            if (is_numeric($amount) && strtotime($date)) {
+                $transactions[] = ['amount' => (float)$amount, 'date' => $date, 'category' => $category];
             } else {
-                $output->writeln("<error>Invalid input. Please enter valid numbers for ID and amount, and a valid date.</error>");
+                $output->writeln("<error>Invalid input. Please enter valid date.</error>");
             }
 
             $output->writeln("Do you want to add another transaction? (yes/no): ");

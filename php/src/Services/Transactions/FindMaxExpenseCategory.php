@@ -34,7 +34,7 @@ class FindMaxExpenseCategory
         }
 
         if ($maxExpenseCategory !== null) {
-            return new TransactionCategory(0, $maxExpenseCategory, $maxExpense);
+            return new TransactionCategory($maxExpenseCategory, $maxExpense);
         }
 
         return null;

@@ -24,7 +24,7 @@ class Question2Command
         if (in_array('--manual', $argv)) {
             $ordersData = $this->getOrdersInput->getOrdersFromUser();
             $orders = array_map(function($orderData) {
-                return new Order($orderData['id'], $orderData['status'], $orderData['total']);
+                return new Order($orderData['status'], $orderData['amount']);
             }, $ordersData);
         } elseif (in_array('--random', $argv)) {
             $orders = [];
@@ -33,7 +33,6 @@ class Question2Command
 
             for ($i = 1; $i <= $numOrders; $i++) {
                 $orders[] = new Order(
-                    $i,
                     $statuses[array_rand($statuses)],
                     rand(50, 500)
                 );

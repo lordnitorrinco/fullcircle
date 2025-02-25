@@ -4,20 +4,13 @@ namespace App\Entities;
 
 class Order
 {
-    private int $id;
     private string $status;
-    private float $total;
+    private float $amount;
 
-    public function __construct(int $id, string $status, float $total)
+    public function __construct(string $status, float $amount)
     {
-        $this->id = $id;
         $this->status = $status;
-        $this->total = $total;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
+        $this->amount = $amount;
     }
 
     public function getStatus(): string
@@ -25,8 +18,8 @@ class Order
         return $this->status;
     }
 
-    public function getTotal(): float
+    public function getAmount(): float
     {
-        return $this->total;
+        return $this->amount;
     }
 }

@@ -88,17 +88,15 @@ class GetOrdersInput
         $orders = [];
         $output = new ConsoleOutput();
         while (true) {
-            $output->writeln("Enter order ID: ");
-            $id = trim(fgets(STDIN));
             $output->writeln("Enter order status: ");
             $status = trim(fgets(STDIN));
-            $output->writeln("Enter order total: ");
-            $total = trim(fgets(STDIN));
+            $output->writeln("Enter order amount: ");
+            $amount = trim(fgets(STDIN));
 
-            if (is_numeric($id) && is_numeric($total)) {
-                $orders[] = ['id' => (int)$id, 'status' => $status, 'total' => (float)$total];
+            if (is_numeric($amount)) {
+                $orders[] = ['status' => $status, 'amount' => (float)$amount];
             } else {
-                $output->writeln("<error>Invalid input. Please enter valid numbers for ID and total.</error>");
+                $output->writeln("<error>Invalid input. Please enter valid number for amount.</error>");
             }
 
             $output->writeln("Do you want to add another order? (yes/no): ");
@@ -137,8 +135,6 @@ class GetTransactionsInput
         $transactions = [];
         $output = new ConsoleOutput();
         while (true) {
-            $output->writeln("Enter transaction ID: ");
-            $id = trim(fgets(STDIN));
             $output->writeln("Enter transaction amount: ");
             $amount = trim(fgets(STDIN));
             $output->writeln("Enter transaction date (YYYY-MM-DD): ");
@@ -146,10 +142,10 @@ class GetTransactionsInput
             $output->writeln("Enter transaction category: ");
             $category = trim(fgets(STDIN));
 
-            if (is_numeric($id) && is_numeric($amount) && strtotime($date)) {
-                $transactions[] = ['id' => (int)$id, 'amount' => (float)$amount, 'date' => $date, 'category' => $category];
+            if (is_numeric($amount) && strtotime($date)) {
+                $transactions[] = ['amount' => (float)$amount, 'date' => $date, 'category' => $category];
             } else {
-                $output->writeln("<error>Invalid input. Please enter valid numbers for ID and amount, and a valid date.</error>");
+                $output->writeln("<error>Invalid input. Please enter valid date.</error>");
             }
 
             $output->writeln("Do you want to add another transaction? (yes/no): ");
@@ -173,20 +169,13 @@ namespace App\Entities;
 
 class Order
 {
-    private int $id;
     private string $status;
-    private float $total;
+    private float $amount;
 
-    public function __construct(int $id, string $status, float $total)
+    public function __construct(string $status, float $amount)
     {
-        $this->id = $id;
         $this->status = $status;
-        $this->total = $total;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
+        $this->amount = $amount;
     }
 
     public function getStatus(): string
@@ -194,9 +183,9 @@ class Order
         return $this->status;
     }
 
-    public function getTotal(): float
+    public function getAmount(): float
     {
-        return $this->total;
+        return $this->amount;
     }
 }
 EOL;
@@ -211,22 +200,15 @@ namespace App\Entities;
 
 class Transaction
 {
-    private int $id;
     private float $amount;
     private string $date;
     private string $category;
 
-    public function __construct(int $id, float $amount, string $date, string $category)
+    public function __construct(float $amount, string $date, string $category)
     {
-        $this->id = $id;
         $this->amount = $amount;
         $this->date = $date;
         $this->category = $category;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getAmount(): float
@@ -257,25 +239,13 @@ namespace App\Entities;
 
 class TransactionCategory
 {
-    private int $id;
     private string $name;
     private float $expense;
 
-    public function __construct(int $id, string $name, float $expense)
+    public function __construct(string $name, float $expense)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->expense = $expense;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getName(): string
@@ -404,7 +374,7 @@ class OrderProcessor
         });
 
         $total = array_reduce($completedOrders, function($carry, Order $order) {
-            return $carry + $order->getTotal();
+            return $carry + $order->getAmount();
         }, 0.0);
 
         return $total;
@@ -437,7 +407,7 @@ class CalculateTotal
         });
 
         $total = array_reduce($completedOrders, function($carry, Order $order) {
-            return $carry + $order->getTotal();
+            return $carry + $order->getAmount();
         }, 0.0);
 
         return $total;
@@ -582,7 +552,7 @@ class FindMaxExpenseCategory
         }
 
         if ($maxExpenseCategory !== null) {
-            return new TransactionCategory(0, $maxExpenseCategory, $maxExpense);
+            return new TransactionCategory($maxExpenseCategory, $maxExpense);
         }
 
         return null;
@@ -693,10 +663,10 @@ class OrderProcessorController
         $output = new ConsoleOutput();
         // Output the orders
         $table = new Table($output);
-        $table->setHeaders(['Order ID', 'Status', 'Total']);
+        $table->setHeaders(['Status', 'Amount']);
         
         foreach ($orders as $order) {
-            $table->addRow([$order->getId(), $order->getStatus(), $order->getTotal()]);
+            $table->addRow([$order->getStatus(), $order->getAmount()]);
         }
         
         $table->render();
@@ -746,11 +716,10 @@ class TransactionController
         $output = new ConsoleOutput();
         // Output the transactions in a table format
         $table = new Table($output);
-        $table->setHeaders(['Transaction ID', 'Amount', 'Date', 'Category']);
+        $table->setHeaders(['Amount', 'Date', 'Category']);
 
         foreach ($transactions as $transaction) {
             $table->addRow([
-            $transaction->getId(),
             $transaction->getAmount(),
             $transaction->getDate(),
             $transaction->getCategory()
@@ -773,16 +742,18 @@ class TransactionController
         // Output the balance and max expense category in a table format
         $summaryTable = new Table($output);
         $summaryTable->setHeaders(['Category with highest expense', 'Expense']);
-        $summaryTable->addRow([$maxExpenseCategory->getName(), $maxExpenseCategory->getExpense()]);
+        if($maxExpenseCategory) {
+            $summaryTable->addRow([$maxExpenseCategory->getName(), $maxExpenseCategory->getExpense()]);
+        }
         $summaryTable->render();
 
         // Output recent transactions in a table format
         $recentTable = new Table($output);
-        $recentTable->setHeaders(['Recent transaction ID', 'Amount', 'Date', 'Category']);
+        $output->writeln("Recent transactions");
+        $recentTable->setHeaders(['Amount', 'Date', 'Category']);
 
         foreach ($recentTransactions as $transaction) {
             $recentTable->addRow([
-            $transaction->getId(),
             $transaction->getAmount(),
             $transaction->getDate(),
             $transaction->getCategory()
@@ -982,7 +953,7 @@ class Question2Command
         if (in_array('--manual', $argv)) {
             $ordersData = $this->getOrdersInput->getOrdersFromUser();
             $orders = array_map(function($orderData) {
-                return new Order($orderData['id'], $orderData['status'], $orderData['total']);
+                return new Order($orderData['status'], $orderData['amount']);
             }, $ordersData);
         } elseif (in_array('--random', $argv)) {
             $orders = [];
@@ -991,7 +962,6 @@ class Question2Command
 
             for ($i = 1; $i <= $numOrders; $i++) {
                 $orders[] = new Order(
-                    $i,
                     $statuses[array_rand($statuses)],
                     rand(50, 500)
                 );
@@ -1037,7 +1007,7 @@ class Question3Command
         if (in_array('--manual', $argv)) {
             $transactionsData = $this->getTransactionsInput->getTransactionsFromUser();
             $transactions = array_map(function($transactionData) {
-                return new Transaction($transactionData['id'], $transactionData['amount'], $transactionData['date'], $transactionData['category']);
+                return new Transaction($transactionData['amount'], $transactionData['date'], $transactionData['category']);
             }, $transactionsData);
         } elseif (in_array('--random', $argv)) {
             $categories = [
@@ -1069,7 +1039,7 @@ class Question3Command
                 } else {
                     $date = date('Y-m-d', strtotime("-" . rand(0, 27) . " days"));
                 }
-                $transactions[] = new Transaction($i, $amount, $date, $category);
+                $transactions[] = new Transaction($amount, $date, $category);
             }
         } else {
             $output->writeln("<error>Invalid usage for question3. Use -h or --help for instructions.</error>");

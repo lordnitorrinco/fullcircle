@@ -19,7 +19,7 @@ class OrderProcessor
         });
 
         $total = array_reduce($completedOrders, function($carry, Order $order) {
-            return $carry + $order->getTotal();
+            return $carry + $order->getAmount();
         }, 0.0);
 
         return $total;
